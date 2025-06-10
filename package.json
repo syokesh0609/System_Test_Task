@@ -1,5 +1,5 @@
 {
-  "name": "try",
+  "name": "task",
   "version": "1.0.0",
   "description": "E-commerce campaign reporting API with JWT authentication",
   "main": "app.js",

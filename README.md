@@ -2,23 +2,25 @@
 
 This project is a Node.js application using Express, Sequelize, and SQLite for uploading campaign data via CSV and generating reports with JWT-based authentication.
 
-# Setup Instructions
+## Setup Instructions
 
-# Step 1: Install SQLite3
+## Step 1: Install SQLite3
 
-# Step 2: Install Node.js Packages
-
+## Step 2: Install Node.js Packages
+```
 npm install
+```
 
 This installs all required dependencies like Express, Sequelize, JWT, bcrypt, etc.
 
-# Step 3: Run the Application
-
+## Step 3: Run the Application
+```
 npm start
+```
 
-# Step 4: Create a User Using POSTMAN
+## Step 4: Create a User Using POSTMAN
 
-**Endpoint:** `POST http://localhost:3000/users`  
+**POST** `http://localhost:3000/users`  
 **Body:**
 ```json
 {
@@ -28,9 +30,9 @@ npm start
 }
 ```
 
-# Step 5: Login and Get JWT Token
-
-**Endpoint:** `POST /login`  
+## Step 5: Login and Get JWT Token
+ 
+**POST** `http://localhost:3000/login`  
 **Body:**
 ```json
 {
@@ -46,23 +48,23 @@ npm start
 }
 ```
 
-# Step 6: Upload CSV File
+## Step 6: Upload CSV File
 
-**Endpoint:** `POST /upload-csv`  
+**POST** `http://localhost:3000/upload-csv`  
 **Form-Data Field:** `file` (your product CSV file path)
 
-# Step 7: Product Reporting APIs (JWT Required)
+## Step 7: Product Reporting APIs (JWT Required)
 
-# a. Filter by Campaign Name
-**POST** `/products/report/campaign`
+### a. Filter by Campaign Name
+**POST** `http://localhost:3000/products/report/campaign`
 ```json
 {
-  "campaing_name": "Campaign A",
+  "campaing_name": "Campaign Name",
 }
 ```
 
 ### 🔍 b. Filter by Ad Group ID
-**POST** `/products/report/adGroupID`
+**POST** `http://localhost:3000/products/report/adGroupID`
 ```json
 {
   "ad_group_id": "ad group id",
@@ -78,7 +80,7 @@ npm start
 ```
 
 ### 🔍 d. Filter by Product Name
-**POST** `/products/report/productName`
+**POST** `http://localhost:3000/products/report/productName`
 ```json
 {
   "product_name": "product name",
