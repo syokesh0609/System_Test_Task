@@ -8,7 +8,8 @@ exports.createUser = async (req, res) => {
     const user = await User.create({ username, email, password: hashed });
     res.json(user);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    // console.log(err.errors[0].message)
+    res.status(400).json({ message: err.errors[0].message });
   }
 };
 

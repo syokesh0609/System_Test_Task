@@ -1,47 +1,28 @@
 const Product = require("../models/product");
 
 exports.uploadCSV = async (req, res) => {
-  try {
-    const fs = require("fs");
-    const path = require("path");
-    const csv = require("csv-parser");
+  const fs = require("fs");
+  const path = require("path");
+  const csv = require("csv-parser");
+  // console.log(req)
 
-    const formatHeader = (header) =>
-      header.toLowerCase().replace(/\s+/g, '_');
+  const formatHeader = (header) => header.toLowerCase().replace(/\s+/g, '_');
 
-    const uploadDir = path.join(__dirname, '../uploads');
-    const originalPath = req.body.file;
-    const fileName = path.basename(originalPath);
-    const savedPath = path.join(uploadDir, fileName);
-
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    fs.copyFileSync(originalPath, savedPath);
-
-    let results = [];
-    fs.createReadStream(savedPath)
-      .pipe(csv({
-        mapHeaders: ({ header }) => formatHeader(header)
-      }))
-      .on("data", (data) => results.push(data))
-      .on("end", async () => {
-        try {
-          console.log(results);
-          await Product.bulkCreate(results);
-          res.json({ message: "CSV data uploaded successfully" });
-        } catch (err) {
-          res.status(400).json({ message: err.message });
-        }
-      });
-  } catch (err) {
-    res.status(400).json({ message: err.message });
-    console.log("Invalid File or Issue in File Upload", err)
-  }
-
+  let results = [];
+  fs.createReadStream(req.file.path)
+    .pipe(csv({
+      mapHeaders: ({ header }) => formatHeader(header)
+    }))
+    .on("data", (data) => results.push(data))
+    .on("end", async () => {
+      try {
+        await Product.bulkCreate(results);
+        res.json({ message: "CSV data uploaded successfully" });
+      } catch (err) {
+        res.status(400).json({ message: err.message });
+      }
+    });
 };
-
 
 
 exports.report = (filterKey) => async (req, res) => {
@@ -55,7 +36,7 @@ exports.report = (filterKey) => async (req, res) => {
     if (product_name) where.product_name = product_name;
     console.log(where, filterKey)
 
-    if( Object.keys(where).length !== 0){
+    if (Object.keys(where).length !== 0) {
       const products = await Product.findAll({ where });
       // console.log(products)
       const report = products.map((p) => {
@@ -74,11 +55,11 @@ exports.report = (filterKey) => async (req, res) => {
         };
       });
       res.json(report);
-    }else{
-      res.status(400).json({"message": "Pleas Send the Filter Data, Example, Body:{'campaign_name': 'PLA-KW-NB-Dalda Kachi Ghani -1L Pouch-WB GW HR UP'}"});
-      
+    } else {
+      res.status(400).json({ "message": "Pleas Send the Filter Data, Example, Body:{'campaign_name': 'PLA-KW-NB-Dalda Kachi Ghani -1L Pouch-WB GW HR UP'}" });
+
     }
-    
+
   } catch (err) {
     console.log("Issue in Fetch data", err)
     res.status(400).json({ message: err.message });

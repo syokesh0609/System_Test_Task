@@ -18,74 +18,9 @@ This installs all required dependencies like Express, Sequelize, JWT, bcrypt, et
 npm start
 ```
 
-## Step 4: Create a User Using POSTMAN
+## Step 4: Import Postman Collection
 
-**POST** `http://localhost:3000/users`  
-**Body:**
-```json
-{
-  "username": "testuser",
-  "password": "testpass",
-  "email": "test@example.com"
-}
-```
-
-## Step 5: Login and Get JWT Token
- 
-**POST** `http://localhost:3000/login`  
-**Body:**
-```json
-{
-  "username": "testuser",
-  "password": "testpass"
-}
-```
-
-**Response:**
-```json
-{
-  "token": "your-jwt-token"
-}
-```
-
-## Step 6: Upload CSV File
-
-**POST** `http://localhost:3000/upload-csv`  
-**Form-Data Field:** `file` (your product CSV file path)
-
-## Step 7: Product Reporting APIs (JWT Required)
-
-### a. Filter by Campaign Name
-**POST** `http://localhost:3000/products/report/campaign`
-```json
-{
-  "campaing_name": "Campaign Name",
-}
-```
-
-### 🔍 b. Filter by Ad Group ID
-**POST** `http://localhost:3000/products/report/adGroupID`
-```json
-{
-  "ad_group_id": "ad group id",
-}
-```
-
-### 🔍 c. Filter by FSN ID
-**POST** `/products/report/fsnID`
-```json
-{
-  "fsn_id": "fsn id",
-}
-```
-
-### 🔍 d. Filter by Product Name
-**POST** `http://localhost:3000/products/report/productName`
-```json
-{
-  "product_name": "product name",
-}
-```
+Import the file System Test Task.postman_collection.json into Postman to test the APIs easily.
 
 # Tech Stack
 - Node.js + Express
